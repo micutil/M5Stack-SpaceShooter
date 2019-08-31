@@ -1,9 +1,8 @@
 # SpaceShooter for Odroid-GO & M5Stack
-<br />
+
 <p align="center">
- <img src="Screenshot.PNG" width="250">
+ <img src="OGshooter.jpg" width="250">
 </p>
-<br />
 
 ### Modified by Micutil
 
@@ -20,6 +19,13 @@
 
 -------------------------
 ### Original READ ME
+
+<br />
+<p align="center">
+ <img src="Screenshot.PNG" width="250">
+</p>
+<br />
+
 ## About
 
 - Space Invaders for the M5Stack.
