@@ -12,7 +12,12 @@
 // Controller   : Buttons A = LEFT, B = RIGHT, C = START or SHOOTING
 // Github:https://macsbug.wordpress.com/2018/01/12/esp32-spaceshooter-with-m5stack/
 //===================================================================
+//Modified by Micutil
+//Added launcher code for SD-Update / LovyanLauncher.
+//Added binary for Odroid-GO (using ESP32-Chimera-Core).
+//===================================================================
 #include <M5Stack.h>
+#include "M5StackUpdater.h"
 //============================= game variables =========================
 unsigned long offsetM = 0;
 unsigned long offsetT = 0;
@@ -91,7 +96,11 @@ void setup() {
   memset(aFireY, 0, 5);
   memset(aFireAge, 0, 5);
   M5.begin();
-  M5.Lcd.setRotation(0);//M5.Lcd.setRotation(3);
+  Wire.begin();
+  if(digitalRead(BUTTON_A_PIN) == 0){updateFromFS(SD);ESP.restart();}
+  #ifndef ARDUINO_ODROID_ESP32
+  M5.Lcd.setRotation(1);//M5.Lcd.setRotation(0);
+  #endif
   M5.Lcd.fillScreen(ILI9341_BLACK);
   M5.Lcd.setTextColor(0x5E85);
   M5.Lcd.setTextSize(4);
@@ -102,9 +111,15 @@ void setup() {
 }
 //==================================================================
 void loop() {
+  #ifdef ARDUINO_ODROID_ESP32
+  if(M5.BtnA.isPressed()||M5.BtnB.isPressed()||M5.BtnStart.isPressed()) { select() ;}
+  int joyX=M5.JOY_X.isAxisPressed();
+  if (joyX==1) { right () ; } else if(joyX==2) { left  () ;}
+  #else
   if(M5.BtnA.isPressed()) { left  () ;}
   if(M5.BtnB.isPressed()) { right () ;}
   if(M5.BtnC.isPressed()) { select() ;}
+  #endif
   //-------------Start Screen--------------
   if (millis() - offsetS >= 900 and !beginGame) {
     if (!startPrinted) {
