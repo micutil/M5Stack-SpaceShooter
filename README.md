@@ -4,6 +4,13 @@
  <img src="OGshooter.jpg" width="250">
 </p>
 
+### Programs
+- in M5_Gamebin ... 4M minimal SPIFFS partition scheme
+- in MD_Gamebin ... 4M default partition scheme
+- in MF_Gamebin ... Fire defaut partition scheme
+- in OG_Gamebin ... bin file for Odroid-GO
+- in odroid/firmwares ... fw file for Odroid-GO launcher
+
 ### Modified by Micutil
 
 - Added launcher code for SD-Update / LovyanLauncher.
